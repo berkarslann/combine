@@ -8,11 +8,17 @@ import { MainContainer, ButtonContainer, Button, Contribute } from "./styles";
 const HomeNavbar = () => {
   return (
     <MainContainer>
-    <Link to='/'>
-      <img src={logo} alt="Description of the image" style={{ width: "80%", height: "auto" }} />
+      <Link to="/">
+        <img
+          src={logo}
+          alt="Description of the image"
+          style={{ width: "80%", height: "auto" }}
+        />
       </Link>
       <ButtonContainer>
-        <Contribute>katkı sağla</Contribute>
+        <Link to="https://github.com/berkarslann/combine">
+          <Contribute>katkı sağla</Contribute>
+        </Link>
         <Contribute>hakkında</Contribute>
         <Link to="/login">
           <Button>giriş yap</Button>

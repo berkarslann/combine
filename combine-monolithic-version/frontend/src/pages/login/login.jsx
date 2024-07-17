@@ -1,57 +1,59 @@
-import React from "react";
-import { MainContainer } from "./styles";
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { MainContainer, LoginContainer, LoginInput, LoginButton } from "./styles";
 import logo from "../../assets/logo.png";
 import LoginNavbar from "../../layouts/navbar/login/navbar";
-import { LoginContainer, LoginInput, LoginButton, LoginInfo } from "./styles";
-import { useState } from "react";
-import {loginUser} from '../../redux/user/user.action';
-import { useNavigate } from 'react-router-dom'; // Eklenen import
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { getCurrentUser } from '../../redux/user/user.action'
+import { loginUser, getCurrentUser } from "../../redux/user/user.action";
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [currentUser, setCurrentUser] = useState(false);
+  const [inputError, setInputError] = useState(false);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
+  const sendAuthInfo = async () => {
+    try {
+      let userCre = { email, password };
+      const response = await dispatch(loginUser(userCre));
+      localStorage.setItem("accessToken", response.payload.accessToken);
+      dispatch(getCurrentUser());
+      navigate('/feed');
+    } catch (err) {
+      setError('Hatalı kullanıcı adı veya şifre');
+      setInputError(true);
+      setTimeout(() => setInputError(false), 2000); // 2 saniye sonra hatayı sıfırla
+      console.log(err);
+    }
+  };
 
-
-  const sendAuthInfo = async()=>{
-      try{
-        let userCre = {email,password};
-        const response = await dispatch(loginUser(userCre));
-        localStorage.setItem("accessToken", response.payload.accessToken);
-      
-        dispatch(getCurrentUser());
-        navigate('/feed');
-      
-
-      }catch(err){
-        setError('Hatalı kullanıcı adı veya şifre');
-        console.log(err);
-      }
-  }
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/feed');
+    }
+  }, [currentUser, navigate]);
 
   return (
     <MainContainer>
-      <LoginNavbar></LoginNavbar>
+      <LoginNavbar />
       <LoginContainer>
         <h1>COMBINE EVRENİNE GİR</h1>
         <LoginInput
           type="email"
           placeholder="E-posta"
           onChange={(e) => setEmail(e.target.value)}
+          style={{ borderColor: inputError ? 'red' : '' }}
         />
         <LoginInput
           type="password"
           placeholder="Şifre"
           onChange={(e) => setPassword(e.target.value)}
+          style={{ borderColor: inputError ? 'red' : '' }}
         />
-
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <h3>
           Giriş yaparak{" "}
           <a
