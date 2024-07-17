@@ -1,7 +1,7 @@
 
 # Combine
 
-Combine is a platform designed to match individuals interested in software projects into teams. This project aims to streamline the process of finding collaborators for software development, making it easier for like-minded individuals to connect and work together.
+Combine is a platform that matches people interested in software projects into random teams. This project makes it easier to find collaborators for software development, enabling people to connect and work together.
 
 
 
