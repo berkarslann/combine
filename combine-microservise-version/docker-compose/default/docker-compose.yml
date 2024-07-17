@@ -1,0 +1,139 @@
+services:
+  projectsdb:
+    container_name: projectsdb
+    ports:
+      - 3309:3306
+    environment:
+      MYSQL_DATABASE: projectsdb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+#   matchingdb:
+#     container_name: matchingdb
+#     ports:
+#       - 3307:3306
+#     environment:
+#       MYSQL_DATABASE: matchingdb
+#     extends:
+#       file: common-config.yml
+#       service: microservice-db-config
+
+  authdb:
+    container_name: authdb
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_DATABASE: authdb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+#   configserver:
+#     image: "combine/configserver"
+#     container_name: configserver-ms
+#     ports:
+#       - "8071:8071"
+#     healthcheck:
+#       test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+#       interval: 10s
+#       timeout: 5s
+#       retries: 10
+#       start_period: 10s
+#     extends:
+#       file: common-config.yml
+#       service: microservice-base-config
+
+#   eurekaserver:
+#     image: "combine/eurekaserver"
+#     container_name: eurekaserver-ms
+#     ports:
+#       - "8070:8070"
+#     depends_on:
+#       configserver:
+#         condition: service_healthy
+#     healthcheck:
+#       test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+#       interval: 10s
+#       timeout: 5s
+#       retries: 10
+#       start_period: 10s
+#     extends:
+#       file: common-config.yml
+#       service: microservice-configserver-config
+#     environment:
+#       SPRING_APPLICATION_NAME: "eurekaserver"
+
+#   projects:
+#     image: "combine/projects"
+#     container_name: projects-ms
+#     ports:
+#       - "8080:8080"
+#     environment:
+#       SPRING_APPLICATION_NAME: "projects"
+#       SPRING_DATASOURCE_URL: "jdbc:mysql://projectsdb:3306/projectsdb"
+#     depends_on:
+#       projectsdb:
+#         condition: service_healthy
+#       configserver:
+#         condition: service_healthy
+#     extends:
+#       file: common-config.yml
+#       service: microservice-configserver-config
+
+#   matching:
+#     image: "combine/matching"
+#     container_name: matching-ms
+#     ports:
+#       - "8090:8090"
+#     environment:
+#       SPRING_APPLICATION_NAME: "matching"
+#       SPRING_DATASOURCE_URL: "jdbc:mysql://matchingdb:3306/matchingdb"
+#     depends_on:
+#       matchingdb:
+#         condition: service_healthy
+#       configserver:
+#         condition: service_healthy
+#     extends:
+#       file: common-config.yml
+#       service: microservice-configserver-config
+
+#   auth:
+#     image: "combine/auth"
+#     container_name: auth-ms
+#     ports:
+#       - "9000:9000"
+#     environment:
+#       SPRING_APPLICATION_NAME: "auth"
+#       SPRING_DATASOURCE_URL: "jdbc:mysql://authdb:3306/authdb"
+#     depends_on:
+#       authdb:
+#         condition: service_healthy
+#       configserver:
+#         condition: service_healthy
+#     extends:
+#       file: common-config.yml
+#       service: microservice-configserver-config 
+  
+#   gatewayserver:
+#     image: "combine/gatewayserver"
+#     container_name: gatewayserver-ms
+#     ports:
+#       - "8072:8072"
+#     depends_on:
+#       projects:
+#         condition: service_healthy
+#       matching:
+#         condition: service_healthy
+#       auth:
+#         condition: service_healthy
+#     environment:
+#       SPRING_APPLICATION_NAME: "gatewayserver"
+#     extends:
+#       file: common-config.yml
+#       service: microservice-eureka-config
+
+
+networks:
+  combine:
+    driver: "bridge"

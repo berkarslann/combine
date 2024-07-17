@@ -1,0 +1,100 @@
+services:
+  projectsdb:
+    container_name: projectsdb
+    ports:
+      - 3309:3306
+    environment:
+      MYSQL_DATABASE: projectsdb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+  matchingdb:
+    container_name: matchingdb
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: matchingdb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+  notificationdb:
+    container_name: notificationdb
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_DATABASE: notificationdb
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+  configserver:
+    image: "combine/configserver:s7"
+    container_name: configserver-ms
+    ports:
+      - "8071:8071"
+    healthcheck:
+      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: microservice-base-config
+
+  projects:
+    image: "combine/projects:s7"
+    container_name: accounts-ms
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_NAME: "projects"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://projectsdb:3306/projectsdb"
+    depends_on:
+      projectsdb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  matching:
+    image: "combine/matching:s7"
+    container_name: matching-ms
+    ports:
+      - "8090:8090"
+    environment:
+      SPRING_APPLICATION_NAME: "matching"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://matchingdb:3306/matchingdb"
+    depends_on:
+      matchingdb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  notification:
+    image: "combine/notification:s7"
+    container_name: notification-ms
+    ports:
+      - "9000:9000"
+    environment:
+      SPRING_APPLICATION_NAME: "notification"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://notificationdb:3306/notificationdb"
+    depends_on:
+      notification:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+networks:
+  eazybank:
+    driver: "bridge"

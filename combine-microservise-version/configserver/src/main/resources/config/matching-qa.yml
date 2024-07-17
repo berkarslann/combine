@@ -1,0 +1,11 @@
+build:
+  version: "2.0"
+
+cards:
+  message: "Welcome to Combine matching related QA APIs "
+  contactDetails:
+    name: "Oral Berk Arslan - Software Developer"
+    email: "berkk.arsln@gmail.com"
+  onCallSupport:
+    - (539) 319-0661
+    - (539) 319-0661

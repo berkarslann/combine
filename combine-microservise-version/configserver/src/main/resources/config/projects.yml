@@ -1,0 +1,11 @@
+build:
+  version: "3.0"
+
+accounts:
+  message: "Welcome to Combine projects related local APIs "
+  contactDetails:
+    name: "Oral Berk Arslan - Software Developer"
+    email: "berkk.arsln@gmail.com"
+  onCallSupport:
+    - (539) 319-0661
+    - (539) 319-0661
