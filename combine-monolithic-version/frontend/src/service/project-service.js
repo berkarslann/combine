@@ -21,20 +21,19 @@ export const fetchProjects = async() =>{
   export const fetchSingleProject = async (projectId) => {
     try {
       const apiUrl = `http://localhost:3000/feed/single-project/${projectId}`;
-      
+  
       const response = await axios.get(apiUrl, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      
-      console.log('fonksiyona geliyor')
-      return response.data;
-    
-    } catch (err) {
-      console.log(err)
+    return response.data;
+  
+    } catch (error) {
+      console.error('Error fetching the project:', error);
+      throw error;
     }
-  }
+  };
   
 
   export const matchRandomProject = async(wantedRole, token)=>{
