@@ -96,14 +96,16 @@ const SignUp = () => {
 
   const handleSubmit = async () => {
     try {
+      navigate("/login");
       const response = await dispatch(register(form));
       localStorage.setItem("accessToken", response.payload.accessToken);
-      navigate("/feed");
+      
     } catch (err) {
       setError("Hatalı kullanıcı adı veya şifre");
       console.log(err);
     }
   };
+  
 
   return (
     <MainContainer>
