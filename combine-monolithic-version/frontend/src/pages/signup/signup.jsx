@@ -110,7 +110,7 @@ const SignUp = () => {
   return (
     <MainContainer>
       <FirstHalfContainer>
-        <Link to="/feed">
+        <Link to="/">
           <img src={logofooter} style={{ width: "40%" }} alt="Logo" />
         </Link>
         {index > 0 && (

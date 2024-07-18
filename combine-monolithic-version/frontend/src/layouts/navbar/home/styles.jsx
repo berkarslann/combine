@@ -5,7 +5,6 @@ justify-content:space-around;
 align-items:center;
 flex-direction:row;
 margin-top:0;
-margin:2px;
 width:90%;
 
 `

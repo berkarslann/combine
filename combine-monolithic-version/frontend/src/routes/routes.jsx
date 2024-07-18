@@ -11,6 +11,7 @@ import LoginPage from '../pages/login/login';
 import ProjectPage from "../pages/project/project";
 import ProfilePage from '../pages/profile/profile';
 import SignupPage from '../pages/signup/signup'
+import AboutPage from "../pages/about/about";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from '../redux/user/user.action';
 
@@ -45,6 +46,7 @@ const AppRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/profile/:profileId" element={user.currentUser ? <ProfilePage /> : <LoginPage/>} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
     </Router>
   );

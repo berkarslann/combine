@@ -19,9 +19,14 @@ const HomeNavbar = () => {
         <Link to="https://github.com/berkarslann/combine">
           <Contribute>katkı sağla</Contribute>
         </Link>
+        <Link to="/about">
         <Contribute>hakkında</Contribute>
+        </Link>
+        <Link to="/signup">
+          <Button>kaydol</Button>
+        </Link>
         <Link to="/login">
-          <Button>giriş yap</Button>
+          <Contribute>giriş yap</Contribute>
         </Link>
       </ButtonContainer>
     </MainContainer>

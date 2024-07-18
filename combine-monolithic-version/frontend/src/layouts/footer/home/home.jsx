@@ -29,7 +29,7 @@ const HomeFooter = () => {
           <Link to='https://www.jazzforcows.com' >
           <h2 style={{ color: "white" }}>blog</h2>
           </Link>
-          <Link to='https://www.github.com/berkarslann' >
+          <Link to='https://github.com/berkarslann/combine' >
           <h2 style={{ color: "white" }}>kaynak kod</h2>
           </Link>
         </ContactInfoContainer>
