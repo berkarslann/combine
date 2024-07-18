@@ -12,7 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: ["https://combine-api.vercel.app"],
+    origin: ["http://localhost:3000", "https://combine-api.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true,
   })
