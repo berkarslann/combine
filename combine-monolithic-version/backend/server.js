@@ -1,28 +1,27 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const app = express();
-const PORT = process.env.PORT || 5000;
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import cors from "cors";
+import dotenv from "dotenv";
+import authRoutes from "./routes/auth.js";
+import feedRoutes from "./routes/feed.js";
 
+dotenv.config();
+
+const app = express();
+app.use(bodyParser.json());
 app.use(
   cors({
     origin: ["http://localhost:3000", "https://combine-api.vercel.app"],
-    methods: ["POST", "GET", "OPTIONS"],
+    methods: ["POST", "GET"],
     credentials: true,
   })
 );
 
-app.use(express.json());
+app.use("/auth", authRoutes);
+app.use("/feed", feedRoutes);
 
-app.options('*', cors({
-  origin: ["http://localhost:3000", "https://combine-api.vercel.app"],
-  methods: ["POST", "GET", "OPTIONS"],
-  credentials: true,
-}));
-
-app.post('/auth/login', (req, res) => {
-  res.send('Login successful');
-});
+const PORT = 3000;
 
 const startServer = async () => {
   try {
