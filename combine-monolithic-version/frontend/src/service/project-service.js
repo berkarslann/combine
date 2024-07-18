@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const fetchProjects = async() =>{
     try{
-      const apiUrl = "https://combine-api.vercel.app/feed/projects";
+      const apiUrl = "https://combine-api.onrender.com/feed/projects";
         
       const response = await axios.get(apiUrl, {
         headers: {
@@ -20,7 +20,7 @@ export const fetchProjects = async() =>{
 
   export const fetchSingleProject = async (projectId) => {
     try {
-      const apiUrl = `https://combine-api.vercel.app/feed/single-project/${projectId}`;
+      const apiUrl = `https://combine-api.onrender.com/feed/single-project/${projectId}`;
   
       const response = await axios.get(apiUrl, {
         headers: {
@@ -38,7 +38,7 @@ export const fetchProjects = async() =>{
 
   export const matchRandomProject = async(wantedRole, token)=>{
     try{
-      const apiUrl = "https://combine-api.vercel.app/feed/project-matching";
+      const apiUrl = "https://combine-api.onrender.com/feed/project-matching";
   
       const response = await axios.post(apiUrl, {wantedRole:wantedRole, token:token}, {
         headers: {
@@ -56,7 +56,7 @@ export const fetchProjects = async() =>{
   export const deleteProjectRequest = async(projectId, token, role)=> {
     try{
 
-      const apiUrl = `https://combine-api.vercel.app/feed/delete-project-request/${projectId}`;
+      const apiUrl = `https://combine-api.onrender.com/feed/delete-project-request/${projectId}`;
       console.log('burası servis', role.join(','))
       const response = await axios.post(apiUrl, {token:token, role: role.join(',')}, {
         headers: {

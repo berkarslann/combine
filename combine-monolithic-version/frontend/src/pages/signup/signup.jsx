@@ -1,3 +1,7 @@
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { register } from "../../service/auth-service";
 import {
   MainContainer,
   FirstHalfContainer,
@@ -7,22 +11,13 @@ import {
   AnswerContainer,
   NextButton,
   BackButton,
-  FirstContentContainer,
-  FadeInQuestion,
   SignUpForm,
   FormInputV1,
   FormInputV2,
 } from "./styles";
 import { FaCircleInfo } from "react-icons/fa6";
 import { IoMdArrowRoundBack } from "react-icons/io";
-
 import logofooter from "../../assets/logofooter.png";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { register } from "../../service/auth-service";
-import { getCurrentUser } from "../../redux/user/user.action";
-import { useNavigate } from "react-router-dom"; // Eklenen import
 
 const SignUp = () => {
   const questions = [
@@ -32,7 +27,7 @@ const SignUp = () => {
     "4) Eşleneceğiniz projeye haftada kaç saat ayırabilirsiniz?",
   ];
   const answers = [
-    "Backend Developer, Frontend Developer, Fullstack Developer, Mobil Developer ",
+    "Backend Developer, Frontend Developer, Fullstack Developer, Mobil Developer",
     "Junior, Midlevel, Presenior, Senior",
     "Evet, Hayır",
     "0-3 saat, 3-6 saat, 6-9 saat",
@@ -43,7 +38,7 @@ const SignUp = () => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [error, setError] = useState(null);
   const [index, setIndex] = useState(0);
-  const [animate, setAnimate] = useState(false); // State for animation
+  const [animate, setAnimate] = useState(false);
   const isLastQuestion = index === questions.length;
   const [form, setForm] = useState({
     name: "",
@@ -51,6 +46,7 @@ const SignUp = () => {
     email: "",
     password: "",
   });
+
   useEffect(() => {
     console.log(form);
   }, [form]);
@@ -58,35 +54,35 @@ const SignUp = () => {
   const handleAnswerClick = (item) => {
     setSelectedAnswer(item);
   };
+
   const arr = ["title", "level", "leadership", "projectDedicate"];
+
   const handleNextClick = () => {
     if (selectedAnswer !== null) {
-      setAnimate(true); // Enable animation
+      setAnimate(true);
       setTimeout(() => {
         setIndex((prevIndex) => prevIndex + 1);
-        setForm((prevForm) => {
-          const updatedForm = { ...prevForm };
-          updatedForm[arr[index]] = selectedAnswer;
-          return updatedForm;
-        });
-        setAnimate(false); // Disable animation after transitioning
-      }, 300); // Adjust the time according to your preferred animation duration
+        setForm((prevForm) => ({
+          ...prevForm,
+          [arr[index]]: selectedAnswer,
+        }));
+        setAnimate(false);
+      }, 300);
     }
   };
 
   const handleBackClick = () => {
     if (index > 0) {
-      setAnimate(true); // Enable animation
+      setAnimate(true);
       setTimeout(() => {
         setIndex((prevIndex) => prevIndex - 1);
         setSelectedAnswer(null);
-        setForm((prevForm) => {
-          const updatedForm = { ...prevForm };
-          updatedForm[arr[index - 1]] = undefined; // or null, depending on your preference
-          return updatedForm;
-        });
-        setAnimate(false); // Disable animation after transitioning
-      }, 300); // Adjust the time according to your preferred animation duration
+        setForm((prevForm) => ({
+          ...prevForm,
+          [arr[index - 1]]: undefined,
+        }));
+        setAnimate(false);
+      }, 300);
     }
   };
 
@@ -98,18 +94,10 @@ const SignUp = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // form nesnesini kullanarak istediğiniz işlemleri gerçekleştirebilirsiniz
-    console.log("Form submitted:", form);
-  };
-
-  const sendAuthInfo = async () => {
+  const handleSubmit = async () => {
     try {
       const response = await dispatch(register(form));
-      console.log(response)
       localStorage.setItem("accessToken", response.payload.accessToken);
-
       navigate("/feed");
     } catch (err) {
       setError("Hatalı kullanıcı adı veya şifre");
@@ -120,21 +108,22 @@ const SignUp = () => {
   return (
     <MainContainer>
       <FirstHalfContainer>
-        <img src={logofooter} style={{ width: "20%" }} />
+        <Link to="/feed">
+          <img src={logofooter} style={{ width: "40%" }} alt="Logo" />
+        </Link>
         {index > 0 && (
           <div
             style={{ display: "flex", alignItems: "center", marginTop: "1rem" }}
           >
             <IoMdArrowRoundBack style={{ color: "#5f9739" }} />
-
             <BackButton onClick={handleBackClick}>Geri</BackButton>
           </div>
         )}
         <div>
           {index === questions.length ? (
             <div>
-              <Question isActive={true}>Bilgilerinizi tamamlayın.</Question>
-              <Question isActive={false} style={{ fontSize: "1.2rem" }}>
+              <Question isActive>Bilgilerinizi tamamlayın.</Question>
+              <Question style={{ fontSize: "1.2rem" }}>
                 Sizi uygun projelere eşleyeceğiz.
               </Question>
             </div>
@@ -149,7 +138,7 @@ const SignUp = () => {
         <div
           style={{
             marginTop: "auto",
-            fontFamily: ' "Outfit", sans-serif"',
+            fontFamily: '"Outfit", sans-serif"',
             fontSize: "0.7rem",
           }}
         >
@@ -159,8 +148,7 @@ const SignUp = () => {
 
       <SecondHalfContainer>
         {isLastQuestion ? (
-          // Render SignUpForm component after the last question
-          <SignUpForm onSubmit={sendAuthInfo}>
+          <SignUpForm onSubmit={handleSubmit}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <FaCircleInfo
                 style={{
@@ -179,13 +167,13 @@ const SignUp = () => {
             <FormInputV1
               placeholder="İsim"
               name="name"
-              value={form.firstName}
+              value={form.name}
               onChange={handleInputChange}
             />
             <FormInputV1
               placeholder="Soyisim"
               name="surname"
-              value={form.lastName}
+              value={form.surname}
               onChange={handleInputChange}
             />
             <FormInputV2
@@ -201,23 +189,22 @@ const SignUp = () => {
               value={form.password}
               onChange={handleInputChange}
             />
-            <label style={{ fontFamily: ' "Outfit", sans-serif"' }}>
+            <label style={{ fontFamily: '"Outfit", sans-serif"' }}>
               <input type="checkbox" />
               Kaydolarak kullanım koşullarını kabul ediyorum.
-            </label>{" "}
-            <NextButton>Kaydol</NextButton>
+            </label>
+            <NextButton type="submit">Kaydol</NextButton>
           </SignUpForm>
         ) : (
-          // Render questions and answers for other cases
           <AnswerContainer>
             <div>
               {answers[index].split(",").map((item, idx) => (
                 <Answer
                   key={idx}
-                  onClick={() => handleAnswerClick(item)}
-                  isSelected={selectedAnswer === item}
+                  onClick={() => handleAnswerClick(item.trim())}
+                  isSelected={selectedAnswer === item.trim()}
                 >
-                  {item}
+                  {item.trim()}
                 </Answer>
               ))}
             </div>

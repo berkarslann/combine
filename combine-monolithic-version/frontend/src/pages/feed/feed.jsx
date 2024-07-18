@@ -19,7 +19,7 @@ import mouth from "../../assets/mouth.png";
 
 const FeedPage = () => {
   const dispatch = useDispatch();
-  const projects = useSelector((state) => state.project.projects);
+  const projects = useSelector((state) => state.project.projects) || []; // Initialize as empty array
 
   const [loading, setLoading] = useState(true); // Add loading state
 
@@ -60,13 +60,12 @@ const FeedPage = () => {
 
           {loading ? (
             // Display "Loading..." while waiting
-           <div>
-             <NoProject></NoProject>
-             <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0, 0, 0, 0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <p style={{ color: 'white' }}>Projeler yükleniyor...</p>
-          </div>
-           </div>
-           
+            <div>
+              <NoProject></NoProject>
+              <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0, 0, 0, 0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <p style={{ color: 'white' }}>Projeler yükleniyor...</p>
+              </div>
+            </div>
           ) : projects.length === 0 ? (
             <NoProject style={{ color: "white" }}>
               <img
@@ -100,4 +99,5 @@ const FeedPage = () => {
     </MainContainer>
   );
 };
+
 export default FeedPage;

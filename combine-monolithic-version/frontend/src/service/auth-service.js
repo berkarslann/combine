@@ -3,7 +3,7 @@ import axios from 'axios';
 export const login = async (form) => {
 
     try {
-      const apiUrl = "https://combine-api.vercel.app/auth/login";
+      const apiUrl = "https://combine-api.onrender.com/auth/login";
     
       // Make a POST request to the API with form data using Axios
       const response = await axios.post(apiUrl, form, {
@@ -22,7 +22,7 @@ export const login = async (form) => {
 export const register = async (form) => {
 
   try {
-    const apiUrl = "https://combine-api.vercel.app/auth/signup";
+    const apiUrl = "https://combine-api.onrender.com/auth/signup";
   
     // Make a POST request to the API with form data using Axios
     const response = await axios.post(apiUrl, form, {
@@ -44,7 +44,7 @@ export const register = async (form) => {
 
 export const currentUserCheck = async(token) => {
   try{
-    const apiUrl = "https://combine-api.vercel.app/auth/check-token";
+    const apiUrl = "https://combine-api.onrender.com/auth/check-token";
     const response = await axios.get(apiUrl, {
       headers: {
           'Authorization': token
@@ -61,7 +61,7 @@ export const currentUserCheck = async(token) => {
 
 export const currentUserInfo = async(token) => {
   try{
-    const apiUrl = "https://combine-api.vercel.app/auth/check-user-info";
+    const apiUrl = "https://combine-api.onrender.com/auth/check-user-info";
     const response = await axios.get(apiUrl, {
       headers: {
           'Authorization': token
