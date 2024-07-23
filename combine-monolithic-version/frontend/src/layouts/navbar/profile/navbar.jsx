@@ -31,7 +31,7 @@ const ProfileNavbar = ({ selected }) => {
       </Link>
       <ButtonContainer>
         <Link
-          to="/projeler"
+          to="/feed"
           onClick={() => handleButtonClick("projeler")}
           style={{ textDecoration: "none" }}
         >

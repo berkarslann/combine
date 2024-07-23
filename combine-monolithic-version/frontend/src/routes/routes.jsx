@@ -45,7 +45,7 @@ const AppRoutes = () => {
         <Route path="/feed/:projectId" element={<ProjectPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/profile/:profileId" element={user.currentUser ? <ProfilePage /> : <LoginPage/>} />
+        <Route path="/profile" element={user.currentUser ? <ProfilePage /> : <LoginPage/>} />
         <Route path="/about" element={<AboutPage />} />
       </Routes>
     </Router>
