@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 import { logout } from "../../../redux/user/user.action";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 
 const ProfileNavbar = ({ selected }) => {
   const dispatch = useDispatch();
