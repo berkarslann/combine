@@ -40,7 +40,7 @@ const ProfileNavbar = ({ selected }) => {
           </RouteButton>
         </Link>
         <Link
-          to="/profile/123"
+          to="/profile"
           onClick={() => handleButtonClick("profil")}
           style={{ textDecoration: "none" }}
         >
