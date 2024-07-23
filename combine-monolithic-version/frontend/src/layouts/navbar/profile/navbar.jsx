@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
-import { MainContainer, ButtonContainer, RouteButton,LogoutButton } from './styles';
-import logo from '../../../assets/logo.png';
-import { IconLogout } from '@tabler/icons-react';
+import React, { useState } from "react";
+import {
+  MainContainer,
+  ButtonContainer,
+  RouteButton,
+  LogoutButton,
+} from "./styles";
+import logo from "../../../assets/logo.png";
+import { IconLogout } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
-import { logout } from '../../../redux/user/user.action';
+import { logout } from "../../../redux/user/user.action";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
-const ProfileNavbar = ({selected}) => {
+const ProfileNavbar = ({ selected }) => {
   const dispatch = useDispatch();
   const [activeButton, setActiveButton] = useState(selected);
 
@@ -15,36 +21,35 @@ const ProfileNavbar = ({selected}) => {
     setActiveButton(buttonName);
   };
 
-
   return (
     <MainContainer>
-      <Link to='/'>
-      <img src={logo} alt="Description of the image" style={{ width: "50%", height: "auto" }} />
+      <Link to="/">
+        <img
+          src={logo}
+          alt="Description of the image"
+          style={{ width: "50%", height: "auto" }}
+        />
       </Link>
       <ButtonContainer>
-        <RouteButton
+        <Link
+          to="/projeler"
           onClick={() => handleButtonClick("projeler")}
-          active={activeButton === "projeler"}
-          href="/feed"
+          style={{ textDecoration: "none" }}
         >
-          Projeler
-        </RouteButton>
-        <RouteButton
+          <RouteButton active={activeButton === "projeler"}>
+            Projeler
+          </RouteButton>
+        </Link>
+        <Link
+          to="/profile/123"
           onClick={() => handleButtonClick("profil")}
-          active={activeButton === "profil"}
-          href="/profile/123"
+          style={{ textDecoration: "none" }}
         >
-          Profil
+          <RouteButton active={activeButton === "profil"}>Profil</RouteButton>
+        </Link>
+        <RouteButton href="/" onClick={() => dispatch(logout())}>
+          <IoIosLogOut />
         </RouteButton>
-        <RouteButton
-          href="/"
-          onClick={() => dispatch(logout())}
-        >
-         <IoIosLogOut />
-
-        </RouteButton>
-
-
       </ButtonContainer>
     </MainContainer>
   );
