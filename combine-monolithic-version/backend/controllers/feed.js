@@ -112,15 +112,7 @@ export const projectMatching = async (req, res, next) => {
           selectedRoles: [wantedRole]
         };
 
-        // VERSİYON 2'DE BİRDEN FAZLA PROJEYE EŞLENME ÖZELLİĞİ GELİRSE KULLANILACAK.
-        // const projectIdsInUser = user.projects.map(existingProject => existingProject.project._id).toString();
-        // const projectInUserToString = projectInUser.project.toString()
-
-        // console.log(projectIdsInUser.includes(projectInUserToString))
-        // if (projectIdsInUser.includes(projectInUserToString)) {
-        //   console.log('Bu projeye zaten eklenmişsiniz.');
-        //   firstMatchingProject = matchingProjects[1];
-        // }
+      
         
         user.projects.push(projectInUser);
         console.log('burda1')

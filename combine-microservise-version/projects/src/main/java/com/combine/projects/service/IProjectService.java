@@ -7,37 +7,41 @@ import com.combine.projects.dto.ProjectsDto;
 public interface IProjectService {
     
     /**
-     *
-     * @param projectDto - ProjectDto Object
+     * Create a new project.
+     * 
+     * @param projectsDto - ProjectDto Object
      */
     void createProject(ProjectsDto projectsDto);
 
     /**
-     *
+     * Fetch details of a project based on a given project number.
+     * 
      * @param projectNumber - Input Project Number
      * @return Project Details based on a given project number
      */
     ProjectsDto fetchProject(String projectNumber);
 
     /**
-     *
-
-     * @return Projects 
+     * Get a list of all projects.
+     * 
+     * @return List of Projects
      */
     List<ProjectsDto> getAllProjects();
 
     /**
-     *
-     * @param projectDto - ProjectDto Object
-     * @return boolean indicating if the update of Project details is successful or not
+     * Update project details based on the project number.
+     * 
+     * @param projectNumber - Input Project Number
+     * @param projectsDto - ProjectDto Object containing updated project details
+     * @return boolean indicating if the update was successful or not
      */
-    // boolean updateProject(ProjectsDto projectDto);
-
+    boolean updateProject(String projectNumber, ProjectsDto projectsDto);
 
     /**
-     *
+     * Delete a project based on the project number.
+     * 
      * @param projectNumber - Input Project Number
-     * @return boolean indicating if the delete of Account details is successful or not
+     * @return boolean indicating if the delete was successful or not
      */
     void deleteProject(String projectNumber);
 }
