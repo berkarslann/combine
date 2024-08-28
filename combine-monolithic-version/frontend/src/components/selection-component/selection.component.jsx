@@ -142,7 +142,7 @@ const SelectionComponent = () => {
     try{
    
       const response = await dispatch(matchProject(wantedRole));
-        navigate(`/profile/${profile.profileId}`);
+        navigate('/profile');
 
     }catch(err){
       
