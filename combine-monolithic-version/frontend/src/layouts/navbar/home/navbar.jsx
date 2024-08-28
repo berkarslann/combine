@@ -11,7 +11,7 @@ const HomeNavbar = () => {
       <Link to="/">
         <img
           src={logo}
-          alt="Description of the image"
+          alt="Logo Img"
           style={{ width: "80%", height: "auto" }}
         />
       </Link>

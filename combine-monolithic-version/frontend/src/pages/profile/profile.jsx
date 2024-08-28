@@ -50,7 +50,6 @@ const ProfilePage = () => {
 
   const deleteProjectRequestHandle = async (projectId, token, role) => {
     try {
-      console.log("role burası", role[0]);
       await deleteProjectRequest(projectId, token, role);
     } catch (err) {
       console.log(err);

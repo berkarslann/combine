@@ -7,7 +7,7 @@ const LoginNavbar = () => {
   return (
     <MainContainer>
       <Link to='/'>
-      <img src={logo} alt="Description of the image" style={{ width: "90%", height: "auto" }} />
+      <img src={logo} alt="Logo Img" style={{ width: "90%", height: "auto" }} />
       </Link>
      
 

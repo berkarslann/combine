@@ -25,7 +25,7 @@ const ProfileNavbar = ({ selected }) => {
       <Link to="/">
         <img
           src={logo}
-          alt="Description of the image"
+          alt="Logo img"
           style={{ width: "50%", height: "auto" }}
         />
       </Link>
