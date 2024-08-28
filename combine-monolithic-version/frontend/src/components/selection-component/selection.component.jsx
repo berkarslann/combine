@@ -129,7 +129,7 @@ const SelectionComponent = () => {
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
-  const profileId = useParams();
+
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -142,7 +142,7 @@ const SelectionComponent = () => {
     try{
    
       const response = await dispatch(matchProject(wantedRole));
-        navigate(`/profile/${profileId}`);
+        navigate(`/profile/${profile.profileId}`);
 
     }catch(err){
       
