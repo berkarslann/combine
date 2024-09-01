@@ -19,21 +19,20 @@ import mouth from "../../assets/mouth.png";
 
 const FeedPage = () => {
   const dispatch = useDispatch();
-  const projects = useSelector((state) => state.project.projects) || []; // Initialize as empty array
+  const projects = useSelector((state) => state.project.projects) || [];
 
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         await dispatch(getProjects());
-        // Introduce a 1-second delay before setting loading to false
         setTimeout(() => {
           setLoading(false);
         }, 700);
       } catch (error) {
         console.error("Error fetching projects:", error);
-        setLoading(false); // Set loading to false even in case of an error
+        setLoading(false);
       }
     };
 
@@ -59,11 +58,22 @@ const FeedPage = () => {
           </HeroContainer>
 
           {loading ? (
-            // Display "Loading..." while waiting
             <div>
               <NoProject></NoProject>
-              <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0, 0, 0, 0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <p style={{ color: 'white' }}>Projeler yükleniyor...</p>
+              <div
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  background: "rgba(0, 0, 0, 0.5)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <p style={{ color: "white" }}>Projeler yükleniyor...</p>
               </div>
             </div>
           ) : projects.length === 0 ? (

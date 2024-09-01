@@ -1,13 +1,17 @@
-
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, getCurrentUser, displayUser, registerUser } from "./user.action"; // Thunk dosyanızın yolu
+import {
+  loginUser,
+  getCurrentUser,
+  displayUser,
+  registerUser,
+} from "./user.action";
 
 const initialState = {
   accessToken: null,
   error: null,
   loggedIn: false,
   currentUser: undefined,
-  user: undefined
+  user: undefined,
 };
 
 const userSlice = createSlice({
@@ -17,9 +21,8 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.fulfilled, (state, action) => {
-        // Thunk işlevi başarıyla tamamlandığında çalışacak kısım
         state.accessToken = action.payload.accessToken;
-            state.error = null;
+        state.error = null;
         state.loggedIn = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -32,9 +35,8 @@ const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        // Thunk işlevi başarıyla tamamlandığında çalışacak kısım
         state.accessToken = action.payload.accessToken;
-            state.error = null;
+        state.error = null;
         state.loggedIn = true;
       })
       .addCase(registerUser.rejected, (state, action) => {
@@ -50,11 +52,10 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.currentUser = action.payload;
       })
-      .addCase(getCurrentUser.rejected, (state,action) => {
+      .addCase(getCurrentUser.rejected, (state, action) => {
         state.isLoading = false;
         state.currentUser = undefined;
-      })
-  
+      });
   },
 });
 

@@ -99,13 +99,11 @@ const SignUp = () => {
       navigate("/login");
       const response = await dispatch(register(form));
       localStorage.setItem("accessToken", response.payload.accessToken);
-      
     } catch (err) {
       setError("Hatalı kullanıcı adı veya şifre");
       console.log(err);
     }
   };
-  
 
   return (
     <MainContainer>

@@ -16,14 +16,14 @@ export const postLogin = async (req, res, next) => {
     const user = await User.findOne({ email: email });
 
     if (!user) {
-      const error = new Error("Kullanıcı bulunamadı!");
+      const error = new Error("Can't find user");
       error.statusCode = 401;
       throw error;
     }
 
     const isEqual = await bcrypt.compare(password, user.password);
     if (!isEqual) {
-      const error = new Error("Yanlış şifre!");
+      const error = new Error("Wrong Password");
       error.statusCode = 401;
       throw error;
     }

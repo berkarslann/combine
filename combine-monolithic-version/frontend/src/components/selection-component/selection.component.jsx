@@ -4,12 +4,11 @@ import { PiWebhooksLogoThin, PiWebhooksLogoFill } from "react-icons/pi";
 import { FaMobileAlt } from "react-icons/fa";
 import { TbTopologyBus } from "react-icons/tb";
 import { matchProject } from "../../redux/profile/profile.action";
-import { useDispatch, useSelector} from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom'; 
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { displayUser } from "../../redux/profile/profile.action";
 import { useEffect } from "react";
-import cannotpass from '../../assets/cannotpass.png'
-
+import cannotpass from "../../assets/cannotpass.png";
 
 const fadeIn = keyframes`
   from {
@@ -25,8 +24,7 @@ const CircleMenuContainer = styled.div`
   width: 200px;
   height: 100px;
   font-family: "IBM Plex Mono", monospace;
-  margin-bottom:auto;
-
+  margin-bottom: auto;
 `;
 
 const CenterCircle = styled.div`
@@ -45,7 +43,7 @@ const CenterCircle = styled.div`
   z-index: 2;
   color: white;
   text-align: center;
-font-family: "IBM Plex Mono", monospace;
+  font-family: "IBM Plex Mono", monospace;
 
   border: 2px solid transparent;
 
@@ -64,7 +62,7 @@ const OptionCircle = styled.div`
       `rotate(${angle}deg) translateX(100px) rotate(${-angle}deg)`};
   width: 70px;
   height: 70px;
-  background-color:purple;
+  background-color: purple;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -76,7 +74,6 @@ const OptionCircle = styled.div`
     filter: brightness(1.2);
   }
   font-family: "IBM Plex Mono", monospace;
-
 `;
 
 const OptionText = styled.span`
@@ -86,34 +83,31 @@ const OptionText = styled.span`
   flex-direction: column;
   text-align: center;
   font-family: "IBM Plex Mono", monospace;
-  font-size:0.7rem;
-  color:white;
+  font-size: 0.7rem;
+  color: white;
 `;
 
 const SelectedOption = styled.div`
   text-align: center;
   font-weight: bold;
-  color:white;
+  color: white;
   font-family: "IBM Plex Mono", monospace;
-  margin:1rem;
-  
-
+  margin: 1rem;
 `;
- const Button = styled.button` 
-background-color: transparent;
-border: 2px solid purple;
-color: white;
-padding: 10px 20px;
-font-family: "IBM Plex Mono", monospace;
-cursor: pointer;
-font-size:1rem;
-margin:2px;
-&:hover {
-  color: #f78dd2;
-  border: 2px solid #f78dd2;
-}
-
-`
+const Button = styled.button`
+  background-color: transparent;
+  border: 2px solid purple;
+  color: white;
+  padding: 10px 20px;
+  font-family: "IBM Plex Mono", monospace;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 2px;
+  &:hover {
+    color: #f78dd2;
+    border: 2px solid #f78dd2;
+  }
+`;
 const SelectionComponent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -125,11 +119,9 @@ const SelectionComponent = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [wantedRole, setWantedRole] = useState("");
 
-
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
-
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -137,74 +129,82 @@ const SelectionComponent = () => {
     setMenuOpen(false);
   };
 
-
-  const sendMatchProjectRequest = async()=>{
-    try{
-   
+  const sendMatchProjectRequest = async () => {
+    try {
       const response = await dispatch(matchProject(wantedRole));
-        navigate('/');
-
-    }catch(err){
-      
+      navigate("/");
+    } catch (err) {
       console.log(err);
     }
-}
-
-
+  };
 
   return (
     <>
-  {profile.projects[0] ? (
-    <SelectedOption>
-      <img src={cannotpass} style={{width:'40%'}} alt="avatar" />
-      <p>Zaten bir projeye eşlenmişsiniz. Başka bir projeye eşlenmek istiyorsanız lütfen şu anki projeden çıkın.</p>
-    </SelectedOption>
-  ) : (
-    <>
-      <CircleMenuContainer>
-        <CenterCircle onClick={toggleMenu}>
-          <span>Pozisyon</span>
-        </CenterCircle>
-        {isMenuOpen && (
-          <>
-            <OptionCircle angle={0} onClick={() => handleOptionClick("mobil")}>
-              <OptionText>
-                <FaMobileAlt />
-                mobil
-              </OptionText>
-            </OptionCircle>
-            <OptionCircle angle={90} onClick={() => handleOptionClick("backend")}>
-              <OptionText>
-                <PiWebhooksLogoFill />
-                backend
-              </OptionText>
-            </OptionCircle>
-            <OptionCircle angle={180} onClick={() => handleOptionClick("fullstack")}>
-              <OptionText>
-                <TbTopologyBus/>
-                fullstack
-              </OptionText>
-            </OptionCircle>
-            <OptionCircle angle={270} onClick={() => handleOptionClick("frontend")}>
-              <OptionText>
-                <PiWebhooksLogoThin />
-                frontend
-              </OptionText>
-            </OptionCircle>
-          </>
-        )}
-      </CircleMenuContainer>
-      {selectedOption && (
+      {profile.projects[0] ? (
         <SelectedOption>
-          Tercih edilen pozisyon: {selectedOption} 
+          <img src={cannotpass} style={{ width: "40%" }} alt="avatar" />
+          <p>
+            Zaten bir projeye eşlenmişsiniz. Başka bir projeye eşlenmek
+            istiyorsanız lütfen şu anki projeden çıkın.
+          </p>
         </SelectedOption>
-      )}
-      
-      <Button onClick={sendMatchProjectRequest}>Eşle</Button>
-    </>
-  )}
-</>
+      ) : (
+        <>
+          <CircleMenuContainer>
+            <CenterCircle onClick={toggleMenu}>
+              <span>Pozisyon</span>
+            </CenterCircle>
+            {isMenuOpen && (
+              <>
+                <OptionCircle
+                  angle={0}
+                  onClick={() => handleOptionClick("mobil")}
+                >
+                  <OptionText>
+                    <FaMobileAlt />
+                    mobil
+                  </OptionText>
+                </OptionCircle>
+                <OptionCircle
+                  angle={90}
+                  onClick={() => handleOptionClick("backend")}
+                >
+                  <OptionText>
+                    <PiWebhooksLogoFill />
+                    backend
+                  </OptionText>
+                </OptionCircle>
+                <OptionCircle
+                  angle={180}
+                  onClick={() => handleOptionClick("fullstack")}
+                >
+                  <OptionText>
+                    <TbTopologyBus />
+                    fullstack
+                  </OptionText>
+                </OptionCircle>
+                <OptionCircle
+                  angle={270}
+                  onClick={() => handleOptionClick("frontend")}
+                >
+                  <OptionText>
+                    <PiWebhooksLogoThin />
+                    frontend
+                  </OptionText>
+                </OptionCircle>
+              </>
+            )}
+          </CircleMenuContainer>
+          {selectedOption && (
+            <SelectedOption>
+              Tercih edilen pozisyon: {selectedOption}
+            </SelectedOption>
+          )}
 
+          <Button onClick={sendMatchProjectRequest}>Eşle</Button>
+        </>
+      )}
+    </>
   );
 };
 

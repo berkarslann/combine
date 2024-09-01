@@ -31,7 +31,7 @@ const Login = () => {
     } catch (err) {
       setError("Hatalı kullanıcı adı veya şifre");
       setInputError(true);
-      setTimeout(() => setInputError(false), 2000); // 2 saniye sonra hatayı sıfırla
+      setTimeout(() => setInputError(false), 2000);
       console.log(err);
     }
   };

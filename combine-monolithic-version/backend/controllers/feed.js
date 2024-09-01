@@ -1,6 +1,6 @@
 import User from "../models/user.js";
 import Project from "../models/project.js";
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
 //@desc Get all projects
 //@route GET /projects
@@ -20,12 +20,8 @@ export const getAllProjects = async (req, res, next) => {
 //access Private
 export const getSingleProject = async (req, res, next) => {
   try {
-    console.log(req.params.projectId)
+    console.log(req.params.projectId);
     const project = await Project.findById(req.params.projectId);
-    if (!project) {
-     console.log('proje yok')
-    }
-    console.log(project)
     res.status(200).json({ success: true, data: project });
   } catch (err) {
     console.log(err);
@@ -91,56 +87,46 @@ export const projectMatching = async (req, res, next) => {
       const matchingProjects = allProjects.filter((project) => {
         return project.openRoles.includes(wantedRole);
       });
-      
 
       if (user.projects.length >= 1) {
-        console.log('Sadece 1 projeye eşlenebilirsiniz.')
-        return res.status(400).json({ message:'false', error: "User cannot be added to more than two projects." });
-
+        return res.status(400).json({
+          message: "false",
+          error: "User cannot be added to more than two projects.",
+        });
       }
 
       if (matchingProjects.length > 0) {
-  
-
         let firstMatchingProject = matchingProjects[0];
-
-        console.log('bir', user.projects)
-   
-          
         const projectInUser = {
           project: firstMatchingProject._id,
-          selectedRoles: [wantedRole]
+          selectedRoles: [wantedRole],
         };
 
-      
-        
         user.projects.push(projectInUser);
-        console.log('burda1')
-  
-        await user.save();
 
+        await user.save();
 
         const userRolesInProject = {
           user: user._id,
-          selectedRoles: [wantedRole], 
+          selectedRoles: [wantedRole],
         };
-        console.log(firstMatchingProject)
+        console.log(firstMatchingProject);
         firstMatchingProject.members.push(userRolesInProject);
 
-        firstMatchingProject.openRoles = firstMatchingProject.openRoles.filter(role => role !== wantedRole);
+        firstMatchingProject.openRoles = firstMatchingProject.openRoles.filter(
+          (role) => role !== wantedRole
+        );
 
-      
         await firstMatchingProject.save();
 
         res.status(200).json({ matchingProjects });
       } else {
-        res.status(404).json({ message: "Eşleşen proje bulunamadı." });
+        res.status(404).json({ message: "There is no project for you" });
       }
     });
-
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Error" });
   }
 };
 
@@ -155,7 +141,7 @@ export const deleteProjectRequest = async (req, res, next) => {
 
     jwt.verify(token, "somesupersecretsecret", async (err, decoded) => {
       if (err) {
-        return res.status(401).json({ error: "Geçersiz token" });
+        return res.status(401).json({ error: "Invalid Token" });
       }
 
       const userEmail = decoded.email;
@@ -163,23 +149,22 @@ export const deleteProjectRequest = async (req, res, next) => {
 
       const project = await Project.findById(projectId);
 
-      // Projeden belirli bir kullanıcıyı çıkart
-      project.members = project.members.filter(member => member.user.toString() !== user._id.toString());
-      project.openRoles.push(role)
-      // Proje verilerini güncelle
+      project.members = project.members.filter(
+        (member) => member.user.toString() !== user._id.toString()
+      );
+      project.openRoles.push(role);
       await project.save();
 
-      // Kullanıcının projelerinden belirli bir projeyi çıkart
-      user.projects = user.projects.filter(proj => proj.project.toString() !== projectId);
+      user.projects = user.projects.filter(
+        (proj) => proj.project.toString() !== projectId
+      );
 
-      // Kullanıcıyı güncelle
       await user.save();
 
-      res.status(200).json({ message: 'Başarılı' });
+      res.status(200).json({ message: "Succesful!" });
     });
-
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: 'İç Sunucu Hatası' });
+    res.status(500).json({ error: "Error" });
   }
-}
+};

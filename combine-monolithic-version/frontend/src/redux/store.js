@@ -1,6 +1,6 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import {thunk} from 'redux-thunk';
-import rootReducer from './root-reducer'; // rootReducer'ın dosya yolunu düzgün şekilde belirttiğinizden emin olun
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { thunk } from "redux-thunk";
+import rootReducer from "./root-reducer";
 
 const store = configureStore({
   reducer: rootReducer,

@@ -42,7 +42,6 @@ const ProjectPage = () => {
     dispatch(getSingleProject(projectId));
   }, [dispatch]);
   const [isFormVisible, setFormVisible] = useState(false);
-  console.log("proje dil", project.languages);
 
   return (
     <MainContainer>

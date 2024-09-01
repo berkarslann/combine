@@ -12,7 +12,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://combine-navy.vercel.app", "https://combine-unlg.onrender.com"],
+    origin: [
+      "http://localhost:3000",
+      "https://combine-navy.vercel.app",
+      "https://combine-unlg.onrender.com",
+    ],
     methods: ["POST", "GET"],
     credentials: true,
   })
@@ -25,7 +29,10 @@ const PORT = 3000;
 
 const startServer = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log("MongoDB bağlantısı başarılı");
     app.listen(PORT, () => {
       console.log(`Server ${PORT} numaralı portta çalışıyor`);

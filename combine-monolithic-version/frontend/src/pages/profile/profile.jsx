@@ -26,26 +26,26 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
   const token = localStorage.getItem("accessToken");
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         await dispatch(displayUser());
-        setLoading(false); // Set loading to false once user information is fetched
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching user information:", error);
-        setLoading(false); // Set loading to false even in case of an error
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [dispatch]);
 
-  const projects = profile.projects
-  // const userLevel = getUserLevelFromBackend();
+  const projects = profile.projects;
+
   const userLevel = `${profile.level}`;
-  // Avatar URL'sini belirleyelim
+
   let avatarURL;
 
   const deleteProjectRequestHandle = async (projectId, token, role) => {
@@ -77,11 +77,20 @@ const ProfilePage = () => {
   }
 
   if (loading) {
-    // Display loading indicator while waiting for user information
     return (
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-
-      </div>
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: "black",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      ></div>
     );
   }
   return (
