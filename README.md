@@ -4,17 +4,10 @@ Combine is a platform that matches people interested in software projects into r
 
 [Live Demo](https://combine-unlg.onrender.com)
 
+**Demo User Credentials:**  
+*Email*: `admin`  
+*Password*: `admin`
 
-
-
-
-  
-
-
-  
-
-
-  
 ## Usage
 
 ### Getting Started
@@ -30,22 +23,16 @@ In the monolithic version, all application components are combined into a single
 The microservices version of Combine divides the application into independent services, each responsible for a specific functionality. The tech stack includes Java, Spring Boot, React, MySQL, Docker, Kubernetes, and Kafka for asynchronous communication. Each microservice handles its own data and communicates with other services when necessary.
 
 Microservices:
-* Project Service: Manages project details, requirements, and deadlines.
-* Matching Service: Matches users based on project roles.
-* User Service: Manages user profiles, authentication, and access control.
-* Tracking Service: Tracks project progress, task assignments, and milestones. (Note: This service is currently under development and will be added in future updates.)
-
+- Project Service: Manages project details, requirements, and deadlines.
+- Matching Service: Matches users based on project roles.
+- User Service: Manages user profiles, authentication, and access control.
+- Tracking Service: Tracks project progress, task assignments, and milestones. (Note: This service is currently under development and will be added in future updates.)
 
 In the microservices version, asynchronous communication is facilitated through Kafka, ensuring reliable and efficient message passing between services. Service discovery and routing are managed by Eureka Server and API Gateway, respectively, providing a seamless experience for users and developers alike.
-
- 
 
 ## Contributions
 
 Contributions are welcome! I'd love for you to contribute by forking the repository and submitting pull requests.
 
-  
 ## Contact
 For questions or feedback, please contact me at berkk.arsln@gmail.com
-
-
